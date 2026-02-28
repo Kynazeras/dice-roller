@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://gckk7oleb6uk"]
+
+[ext_resource type="Script" uid="uid://jylr3y3nesj7" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://b0yy05p6213r2" path="res://scenes/dice_button.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dx8ss52kpa0bm" path="res://scenes/roll_history_container.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cwpasdjrpgxy7" path="res://scenes/goal_bar.tscn" id="3_sugp2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_o5qli")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RollHistoryContainer" parent="UI/Control" instance=ExtResource("2_jyhfs")]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 92.0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 124
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 124
+
+[node name="DiceButtons" type="HBoxContainer" parent="UI/Control/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="D4" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="D6" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="D8" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="D10" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="D12" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="D20" parent="UI/Control/MarginContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
+layout_mode = 2
+
+[node name="GoalContainer" type="VBoxContainer" parent="UI/Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="TotalLabel" type="Label" parent="UI/Control/MarginContainer/GoalContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+
+[node name="GoalBar" parent="UI/Control/MarginContainer/GoalContainer" instance=ExtResource("3_sugp2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GameOverLabel" type="Label" parent="UI/Control/MarginContainer/GoalContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+
+[node name="RollData" type="VBoxContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_bottom = 50.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="CurrentRollLabel" type="Label" parent="UI/Control/RollData"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Current Roll: "
+
+[node name="GoalLabel" type="Label" parent="UI/Control/RollData"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Goal: "

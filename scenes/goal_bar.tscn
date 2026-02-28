@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cwpasdjrpgxy7"]
+
+[node name="GoalBar" type="ProgressBar"]
+offset_right = 4.0
+offset_bottom = 27.0
+value = 100.0

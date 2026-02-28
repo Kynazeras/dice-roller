@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://vgf0xnhfl12x"]
+
+[ext_resource type="FontFile" uid="uid://c8v0u7t0g5d4u" path="res://theme/fonts/Dicier-Flat-Light.otf" id="1_ag65a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ni34w"]
+bg_color = Color(0, 0.6, 0.85882354, 1)
+
+[resource]
+DicierLabel/base_type = &"Label"
+DicierLabel/font_sizes/font_size = 36
+DicierLabel/fonts/font = ExtResource("1_ag65a")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ni34w")

@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx8ss52kpa0bm"]
+
+[ext_resource type="Script" uid="uid://dve4v3f0gpuqb" path="res://scripts/roll_history_container.gd" id="1_csedb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_csedb"]
+bg_color = Color(0.19215687, 0.21176471, 0.21960784, 1)
+
+[node name="RollHistoryContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 100.0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_csedb")
+script = ExtResource("1_csedb")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Rolls"
+
+[node name="Rolls" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 16
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Rolls"]
+layout_mode = 2
+theme_type_variation = &"DicierLabel"
+text = "2_ON_D10"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Rolls"]
+layout_mode = 2
+theme_type_variation = &"DicierLabel"
+text = "2_ON_D10"
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Rolls"]
+layout_mode = 2
+theme_type_variation = &"DicierLabel"
+text = "2_ON_D6"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Rolls"]
+layout_mode = 2
+theme_type_variation = &"DicierLabel"
+text = "2_ON_D4"
