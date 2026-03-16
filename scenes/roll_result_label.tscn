@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://brgdpel6t6xhi"]
+
+[ext_resource type="Script" uid="uid://m4xjewcyuuv6" path="res://scripts/roll_result_label.gd" id="1_7wnb7"]
+
+[node name="RollResultLabel" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_type_variation = &"DicierLabel"
+theme_override_font_sizes/font_size = 72
+script = ExtResource("1_7wnb7")
+
+[node name="RollTimer" type="Timer" parent="."]
+unique_name_in_owner = true
