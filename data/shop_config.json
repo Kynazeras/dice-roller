@@ -1,0 +1,25 @@
+{
+    "items_per_shop": 6,
+    "rarity_weights": {
+    "common": 60,
+    "uncommon": 25,
+    "rare": 12,
+    "legendary": 3
+    },
+    "rarity_weights_by_round": {
+        "5": {
+            "common": 40,
+            "uncommon": 30,
+            "rare": 22,
+            "legendary": 8
+        },
+        "8": {
+            "common": 20,
+            "uncommon": 30,
+            "rare": 30,
+            "legendary": 20
+        }
+    },
+    "shop_pool": [],
+    "modifier_reward_choices": 3
+}

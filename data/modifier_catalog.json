@@ -1,0 +1,13 @@
+{
+    "modifier_add": {
+        "id": "modifier_add",
+        "name": "Add Modifier",
+        "description": "Adds a fixed number to the roll result.",
+        "type": "numeric",
+        "scope": "permanent",
+        "trigger": "always",
+        "flat_bonus": 2,
+        "multiplier": 1.0,
+        "rarity": "common"
+    }
+}

@@ -1,0 +1,50 @@
+{
+  "d4": {
+    "id": "d4",
+    "name": "D4",
+    "sides": 4,
+    "behavior": "standard",
+    "rarity": "common",
+    "cost": 0
+  },
+  "d6": {
+    "id": "d6",
+    "name": "D6",
+    "sides": 6,
+    "behavior": "standard",
+    "rarity": "common",
+    "cost": 0
+  },
+  "d8": {
+    "id": "d8",
+    "name": "D8",
+    "sides": 8,
+    "behavior": "standard",
+    "rarity": "uncommon",
+    "cost": 10
+  },
+  "d10": {
+    "id": "d10",
+    "name": "D10",
+    "sides": 10,
+    "behavior": "standard",
+    "rarity": "uncommon",
+    "cost": 15
+  },
+  "d12": {
+    "id": "d12",
+    "name": "D12",
+    "sides": 12,
+    "behavior": "standard",
+    "rarity": "rare",
+    "cost": 25
+  },
+  "d20": {
+    "id": "d20",
+    "name": "D20",
+    "sides": 20,
+    "behavior": "standard",
+    "rarity": "legendary",
+    "cost": 50
+  }
+}
