@@ -4,7 +4,7 @@ signal round_started(round_index: int, goal: int)
 signal round_ended(round_index: int, result: RoundResult)
 signal roll_started(dice: Dice)
 signal roll_completed(roll_result: RollResult, round_total: int)
-signal health_changed(new_health: int, change: int)
+signal health_changed(new_health: int, max_health: int)
 signal money_changed(new_money: int)
 signal game_over(win: bool)
 signal shop_opened(items: Array[ShopItem])
@@ -35,6 +35,8 @@ var _pending_round_total: int = 0
 
 var roll_timer: Timer = Timer.new()
 
+var round_history: Array = [] # This will store summaries of each round for the round summary screen
+
 func _ready() -> void:
 	roll_timer.wait_time = GameConfigManager.get_roll_animation_time()
 	roll_timer.one_shot = true
@@ -51,6 +53,7 @@ func start_new_game() -> void:
 	game_state.total_rolled = 0
 	game_state.money_spent = 0
 	game_state.current_round = 0
+	round_history.clear()
 
 	# 2. Build the player's starting dice from the catalog
 	game_state.player_dice = []
@@ -141,28 +144,40 @@ func player_stop() -> void:
 	
 	end_round(RoundResult.UNDER)
 
+
+func update_round_history(result: RoundResult, damage: int) -> void:
+	var summary: RoundSummaryData = RoundSummaryData.new()
+	summary.round_index = game_state.current_round
+	summary.result = result
+	summary.total = game_state.round_state.get_total()
+	summary.goal = game_state.round_state.goal
+	summary.damage = damage
+	round_history.append(summary)
+
+
 func end_round(result: RoundResult) -> void:
 	game_state.money += game_state.round_state.get_total()
-	var round_damage: int = calculate_damage(result)
-	game_state.health -= round_damage
-	health_changed.emit(game_state.health, -round_damage)
+	# var round_damage: int = calculate_damage(result)
+	# game_state.health -= round_damage
+	# health_changed.emit(game_state.health, game_state.max_health)
+	update_round_history(result, 0) # Placeholder damage value until we decide how to handle health changes on the round summary screen
+	_pending_round_total = 0
+	_pending_roll_result = null
 	match result:
 		RoundResult.EXACT:
 			current_state = State.MODIFIER_REWARD
 			modifier_reward_offered.emit(GameConfigManager.get_modifier_rewards_for_round(game_state.current_round))
 		RoundResult.OVER:
 			if game_state.health > 0:
-				# open_shop()
-				round_ended.emit(game_state.current_round - 1, result)
-				start_round(game_state.current_round + 1)
+				round_ended.emit(game_state.current_round, result)
+				SceneManager.change_scene("res://scenes/round_summary.tscn")
 			else:
 				current_state = State.GAME_OVER
 				game_over.emit(false)
 		RoundResult.UNDER:
 			if game_state.health > 0:
-				# open_shop()
-				round_ended.emit(game_state.current_round - 1, result)
-				start_round(game_state.current_round + 1)
+				round_ended.emit(game_state.current_round, result)
+				SceneManager.change_scene("res://scenes/round_summary.tscn")
 			else:
 				current_state = State.GAME_OVER
 				game_over.emit(false)
