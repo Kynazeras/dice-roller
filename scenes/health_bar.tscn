@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://de77rnee1psnf"]
+[gd_scene load_steps=3 format=3 uid="uid://de77rnee1psnf"]
 
 [ext_resource type="Script" uid="uid://d3uq06h3o3grg" path="res://scripts/health_bar.gd" id="1_1bvlm"]
+[ext_resource type="Script" uid="uid://b5xmv6mnbo72f" path="res://components/health_component.gd" id="2_y3kqx"]
 
 [node name="HealthBar" type="ProgressBar"]
 custom_minimum_size = Vector2(0, 16)
@@ -10,3 +11,8 @@ theme_type_variation = &"HealthProgressBar"
 value = 100.0
 show_percentage = false
 script = ExtResource("1_1bvlm")
+
+[node name="HealthComponent" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_y3kqx")
+metadata/_custom_type_script = "uid://b5xmv6mnbo72f"

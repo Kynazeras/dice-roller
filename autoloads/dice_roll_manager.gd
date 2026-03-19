@@ -17,7 +17,6 @@ func roll(dice: Dice, round_state: RoundState) -> RollResult:
 
 	# Apply modifiers to the roll result
 	for modifier in GameManager.game_state.active_modifiers:
-		print(modifier.modifier_name)
 		result = modifier.apply(result)
 	
 	round_state.rolls.append(result)

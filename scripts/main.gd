@@ -24,22 +24,21 @@ func _ready() -> void:
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.shop_opened.connect(_on_shop_opened)
 	GameManager.modifier_reward_offered.connect(_on_modifier_reward_offered)
-	add_starting_dice()
-	GameManager.start_new_game()
+	if GameManager.game_state == null:
+		GameManager.start_new_game()
+	else:
+		GameManager.start_round(GameManager.game_state.current_round + 1)
+
+	_populate_dice_buttons()
 
 
-func add_starting_dice() -> void:
-	var starting_dice_ids: Array = GameConfigManager.get_starting_dice_ids()
-	for dice_id in starting_dice_ids:
-		var dice_def: Dictionary = GameConfigManager.get_dice_def(dice_id)
-		if dice_def.is_empty():
-			push_error("Main: Starting dice '%s' not found in catalog" % dice_id)
-			continue
-		var dice: Dice = Dice.from_dict(dice_def)
+func _populate_dice_buttons() -> void:
+	for dice in GameManager.game_state.player_dice:
 		var dice_button: DiceButton = dice_button_scene.instantiate()
 		dice_button.dice = dice
 		dice_button.dice_selected.connect(_on_dice_selected)
 		dice_buttons.add_child(dice_button)
+
 
 func _on_round_started(_round_index: int, goal: int) -> void:
 	current_round_label.text = "Round: %d" % (_round_index + 1)
@@ -48,15 +47,8 @@ func _on_round_started(_round_index: int, goal: int) -> void:
 	goal_bar.max_value = goal
 	total_label.text = "Total: 0"
 
-func _on_round_ended(_round_index: int, result: GameManager.RoundResult) -> void:
-	var result_text: String = ""
-	match result:
-		GameManager.RoundResult.EXACT:
-			result_text = "Exact! You hit the goal!"
-		GameManager.RoundResult.OVER:
-			result_text = "Over! You exceeded the goal."
-		GameManager.RoundResult.UNDER:
-			result_text = "Under! You didn't reach the goal."
+
+func _on_round_ended(_round_index: int, _result: GameManager.RoundResult) -> void:
 	goal_label.text = "Goal: -"
 	goal_bar.value = 0
 	goal_bar.max_value = 1
@@ -72,6 +64,7 @@ func _on_money_changed(_new_money: int) -> void:
 	# You could add some animation or effects here based on the money change
 	pass
 
+
 func _on_game_over(win: bool) -> void:
 	if win:
 		game_over_label.text = "You Win!"
@@ -83,6 +76,7 @@ func _on_game_over(win: bool) -> void:
 func _on_shop_opened(_items: Array) -> void:
 	# You would implement your shop UI logic here to display the items
 	pass
+
 
 func _on_modifier_reward_offered(_modifiers: Array) -> void:
 	# You would implement your modifier reward UI logic here to display the offered modifiers
