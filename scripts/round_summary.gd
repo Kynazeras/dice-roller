@@ -21,4 +21,4 @@ func _process(_delta: float) -> void:
 	
 
 func _on_next_round_pressed() -> void:
-	SceneManager.change_scene("res://scenes/shop_ui.tscn")
+	SceneManager.change_scene("res://scenes/main.tscn")

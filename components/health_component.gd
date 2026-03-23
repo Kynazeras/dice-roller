@@ -57,3 +57,17 @@ func _change_health(amount: int, type: TYPE) -> void:
 			if current_health <= 0:
 				dead = true
 				died.emit(overkill)
+
+
+# ----------------- GAME SPECIFIC METHODS -----------------
+func calculate_round_damage(result: GameManager.RoundResult) -> int:
+	match result:
+		GameManager.RoundResult.EXACT:
+			return 0
+		GameManager.RoundResult.OVER:
+			return (GameManager.game_state.round_state.get_total() - GameManager.game_state.round_state.goal) * 2
+		GameManager.RoundResult.UNDER:
+			return GameManager.game_state.round_state.goal - GameManager.game_state.round_state.get_total()
+		_:
+			push_warning("Plant: Invalid round result for damage calculation")
+			return 0

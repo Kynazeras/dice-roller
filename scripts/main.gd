@@ -19,12 +19,12 @@ func _ready() -> void:
 	GameManager.round_started.connect(_on_round_started)
 	GameManager.round_ended.connect(_on_round_ended)
 	GameManager.roll_completed.connect(_on_roll_completed)
-	GameManager.health_changed.connect(_on_health_changed)
-	GameManager.money_changed.connect(_on_money_changed)
 	GameManager.game_over.connect(_on_game_over)
 	GameManager.shop_opened.connect(_on_shop_opened)
 	GameManager.modifier_reward_offered.connect(_on_modifier_reward_offered)
-	if GameManager.game_state == null:
+	print(GameManager.game_state.current_round)
+	# TODO: revisit this
+	if GameManager.game_state.total_rolled == 0:
 		GameManager.start_new_game()
 	else:
 		GameManager.start_round(GameManager.game_state.current_round + 1)
@@ -33,7 +33,7 @@ func _ready() -> void:
 
 
 func _populate_dice_buttons() -> void:
-	for dice in GameManager.game_state.player_dice:
+	for dice in PlayerManager.player_state.player_dice:
 		var dice_button: DiceButton = dice_button_scene.instantiate()
 		dice_button.dice = dice
 		dice_button.dice_selected.connect(_on_dice_selected)

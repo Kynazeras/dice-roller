@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=4 uid="uid://vgf0xnhfl12x"]
+[gd_resource type="Theme" format=4 uid="uid://vgf0xnhfl12x"]
 
 [ext_resource type="FontFile" uid="uid://c8v0u7t0g5d4u" path="res://theme/fonts/Dicier-Flat-Light.otf" id="1_ag65a"]
 
@@ -25,6 +25,15 @@ data = PackedByteArray("d09GMgABAAAAALU4ABEAAAABjRQAALTXAAEAAAAAAAAAAAAAAAAAAAAA
 font_name = "Open Sans SemiBold"
 style_name = "SemiBold"
 font_weight = 600
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 18.0
 cache/0/16/0/descent = 5.0
 cache/0/16/0/underline_position = 1.609375
@@ -925,6 +934,9 @@ cache/0/48/0/scale = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ref1"]
 bg_color = Color(1, 0.8784314, 0.49411765, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ehq15"]
+bg_color = Color(1, 0.90588236, 0.8392157, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ag65a"]
 bg_color = Color(0.44705883, 0.8627451, 0.73333335, 1)
 
@@ -961,5 +973,6 @@ DicierLabel/base_type = &"Label"
 DicierLabel/font_sizes/font_size = 36
 DicierLabel/fonts/font = ExtResource("1_ag65a")
 HealthProgressBar/base_type = &"ProgressBar"
+HealthProgressBar/styles/background = SubResource("StyleBoxFlat_ehq15")
 HealthProgressBar/styles/fill = SubResource("StyleBoxFlat_ag65a")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_ni34w")

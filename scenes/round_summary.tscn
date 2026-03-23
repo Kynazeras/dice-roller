@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7s83ianfrk2j"]
+[gd_scene format=3 uid="uid://b7s83ianfrk2j"]
 
 [ext_resource type="Script" uid="uid://dvukyg5ni0s3g" path="res://scripts/round_summary.gd" id="1_round_summary"]
 
-[node name="RoundSummary" type="CanvasLayer"]
+[node name="RoundSummary" type="CanvasLayer" unique_id=240994876]
 script = ExtResource("1_round_summary")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=1430859508]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,7 +13,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="Root"]
+[node name="ColorRect" type="ColorRect" parent="Root" unique_id=2103680248]
 modulate = Color(1, 1, 1, 0.42745098)
 layout_mode = 1
 anchors_preset = 15
@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.654902, 0.64705884, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="Root"]
+[node name="MarginContainer" type="MarginContainer" parent="Root" unique_id=897797906]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,46 +35,46 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 48
 
-[node name="CenterContainer" type="CenterContainer" parent="Root/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Root/MarginContainer" unique_id=271139512]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Root/MarginContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Root/MarginContainer/CenterContainer" unique_id=6779178]
 layout_mode = 2
 
-[node name="RoundResultLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="RoundResultLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer" unique_id=1029154899]
 layout_mode = 2
 theme_override_font_sizes/font_size = 72
 text = "You won"
 horizontal_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="Root/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Root/MarginContainer/CenterContainer/VBoxContainer" unique_id=1748460218]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer"]
+[node name="GridContainer" type="GridContainer" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer" unique_id=468434573]
 layout_mode = 2
 columns = 2
 
-[node name="TotalRolledLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer"]
+[node name="TotalRolledLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer" unique_id=1011008225]
 layout_mode = 2
 text = "Total Rolled: "
 horizontal_alignment = 2
 
-[node name="TotalRolled" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer"]
+[node name="TotalRolled" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer" unique_id=985427262]
 unique_name_in_owner = true
 layout_mode = 2
 text = "69"
 
-[node name="HealthGainLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer"]
+[node name="HealthGainLabel" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer" unique_id=231857994]
 layout_mode = 2
-text = "Health Gained: "
+text = "Health Lost: "
 horizontal_alignment = 2
 
-[node name="HealthGain" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer"]
+[node name="HealthGain" type="Label" parent="Root/MarginContainer/CenterContainer/VBoxContainer/CenterContainer/GridContainer" unique_id=203911139]
 unique_name_in_owner = true
 layout_mode = 2
 text = "+3"
 
-[node name="NextRoundButton" type="Button" parent="Root/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="NextRoundButton" type="Button" parent="Root/MarginContainer/CenterContainer/VBoxContainer" unique_id=1977733416]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Next"

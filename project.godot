@@ -27,6 +27,7 @@ GameConfigManager="*res://autoloads/game_config.gd"
 GameManager="*res://autoloads/game_manager.gd"
 SaveManager="*res://autoloads/save_manager.gd"
 SceneManager="*res://autoloads/scene_manager.gd"
+PlayerManager="*uid://ckckf3vt4mp32"
 
 [display]
 
