@@ -4,7 +4,6 @@ signal round_started(round_index: int, goal: int)
 signal round_ended(round_index: int, result: RoundResult)
 signal roll_started(dice: Dice)
 signal roll_completed(roll_result: RollResult, round_total: int)
-signal health_changed(new_health: int, max_health: int)
 signal money_changed(new_money: int)
 signal game_over(win: bool)
 signal shop_opened(items: Array[ShopItem])
@@ -27,13 +26,12 @@ enum RoundResult {
 }
 
 var current_state: State = State.IDLE
-var game_state: GameState
+var game_state: GameState = GameState.new()
+var roll_timer: Timer = Timer.new()
 
 var _pending_roll_result: RollResult = null
 var _pending_round_total: int = 0
 
-
-var roll_timer: Timer = Timer.new()
 
 var round_history: Array = [] # This will store summaries of each round for the round summary screen
 
@@ -45,30 +43,13 @@ func _ready() -> void:
 
 
 func start_new_game() -> void:
-	# 1. Create a fresh GameState
 	game_state = GameState.new()
-	game_state.health = GameConfigManager.get_starting_health()
-	game_state.max_health = GameConfigManager.get_starting_health()
-	game_state.money = 0
 	game_state.total_rolled = 0
 	game_state.money_spent = 0
 	game_state.current_round = 0
 	round_history.clear()
 
-	# 2. Build the player's starting dice from the catalog
-	game_state.player_dice = []
-	for dice_id in GameConfigManager.get_starting_dice_ids():
-		var dice_def: Dictionary = GameConfigManager.get_dice_def(dice_id)
-		if dice_def.is_empty():
-			push_error("GameManager: Starting dice '%s' not found in catalog" % dice_id)
-			continue
-		var dice: Dice = Dice.from_dict(dice_def)
-		game_state.player_dice.append(dice)
-
-	# 3. Clear any modifiers
-	game_state.active_modifiers = []
-
-	# 4. Start the first round
+	PlayerManager.initialize_player()
 	start_round(game_state.current_round)
 
 
@@ -107,6 +88,19 @@ func player_roll(dice: Dice) -> void:
 	roll_timer.start()
 	game_state.round_state.last_roll = result
 	game_state.total_rolled += result.final_value
+	print(get_potential_round_result())
+	print(PlayerManager.get_potentianl_round_damage(get_potential_round_result()))
+
+
+func get_potential_round_result() -> RoundResult:
+	var total: int = game_state.round_state.get_total()
+	var goal: int = game_state.round_state.goal
+	if total == goal:
+		return RoundResult.EXACT
+	elif total > goal:
+		return RoundResult.OVER
+	else:
+		return RoundResult.UNDER
 
 
 func player_reroll():
@@ -156,47 +150,37 @@ func update_round_history(result: RoundResult, damage: int) -> void:
 
 
 func end_round(result: RoundResult) -> void:
-	game_state.money += game_state.round_state.get_total()
-	# var round_damage: int = calculate_damage(result)
-	# game_state.health -= round_damage
-	# health_changed.emit(game_state.health, game_state.max_health)
-	update_round_history(result, 0) # Placeholder damage value until we decide how to handle health changes on the round summary screen
+	# TODO: emit money changed for playe state
+	# game_state.money += game_state.round_state.get_total()
+	var round_damage: int = PlayerManager.health_component.calculate_round_damage(result)
+	update_round_history(result, round_damage) # Placeholder damage value until we decide how to handle health changes on the round summary screen
 	_pending_round_total = 0
 	_pending_roll_result = null
-	match result:
-		RoundResult.EXACT:
-			current_state = State.MODIFIER_REWARD
-			modifier_reward_offered.emit(GameConfigManager.get_modifier_rewards_for_round(game_state.current_round))
-		RoundResult.OVER:
-			if game_state.health > 0:
-				round_ended.emit(game_state.current_round, result)
-				SceneManager.change_scene("res://scenes/round_summary.tscn")
-			else:
-				current_state = State.GAME_OVER
-				game_over.emit(false)
-		RoundResult.UNDER:
-			if game_state.health > 0:
-				round_ended.emit(game_state.current_round, result)
-				SceneManager.change_scene("res://scenes/round_summary.tscn")
-			else:
-				current_state = State.GAME_OVER
-				game_over.emit(false)
-		_:
-			push_warning("GameManager: Invalid round result for end_round")
-
-
-
-func calculate_damage(result: RoundResult) -> int:
-	match result:
-		RoundResult.EXACT:
-			return 0
-		RoundResult.OVER:
-			return (game_state.round_state.get_total() - game_state.round_state.goal) * 2
-		RoundResult.UNDER:
-			return game_state.round_state.goal - game_state.round_state.get_total()
-		_:
-			push_warning("GameManager: Invalid round result for damage calculation")
-			return 0
+	round_ended.emit(game_state.current_round, result)
+	print(PlayerManager.health_component.current_health)
+	if PlayerManager.health_component.current_health > 0:
+		SceneManager.change_scene("res://scenes/round_summary.tscn")
+	else:
+		current_state = State.GAME_OVER
+		game_over.emit(false)
+	# match result:
+	# 	RoundResult.EXACT:
+	# 		current_state = State.MODIFIER_REWARD
+	# 		modifier_reward_offered.emit(GameConfigManager.get_modifier_rewards_for_round(game_state.current_round))
+	# 	RoundResult.OVER:
+	# 		if PlayerManager.health_component.current_health > 0:
+	# 			SceneManager.change_scene("res://scenes/round_summary.tscn")
+	# 		else:
+	# 			current_state = State.GAME_OVER
+	# 			game_over.emit(false)
+	# 	RoundResult.UNDER:
+	# 		if PlayerManager.health_component.current_health > 0:
+	# 			SceneManager.change_scene("res://scenes/round_summary.tscn")
+	# 		else:
+	# 			current_state = State.GAME_OVER
+	# 			game_over.emit(false)
+	# 	_:
+	# 		push_warning("GameManager: Invalid round result for end_round")
 	
 		
 func select_modifier_reward(modifier: RollModifier) -> void:

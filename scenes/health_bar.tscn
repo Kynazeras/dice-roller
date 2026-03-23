@@ -1,18 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://de77rnee1psnf"]
+[gd_scene format=3 uid="uid://de77rnee1psnf"]
 
 [ext_resource type="Script" uid="uid://d3uq06h3o3grg" path="res://scripts/health_bar.gd" id="1_1bvlm"]
 [ext_resource type="Script" uid="uid://b5xmv6mnbo72f" path="res://components/health_component.gd" id="2_y3kqx"]
 
-[node name="HealthBar" type="ProgressBar"]
+[node name="PlantHealth" type="Control" unique_id=1719955667]
 custom_minimum_size = Vector2(0, 16)
-offset_right = 4.0
-offset_bottom = 27.0
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 theme_type_variation = &"HealthProgressBar"
-value = 100.0
-show_percentage = false
 script = ExtResource("1_1bvlm")
 
-[node name="HealthComponent" type="Node" parent="."]
+[node name="HealthComponent" type="Node" parent="." unique_id=2121255447]
 unique_name_in_owner = true
 script = ExtResource("2_y3kqx")
 metadata/_custom_type_script = "uid://b5xmv6mnbo72f"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1793240320]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 52.0
+grow_horizontal = 2
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer" unique_id=479617603]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_type_variation = &"HealthProgressBar"
+show_percentage = false
+
+[node name="HealthValue" type="Label" parent="VBoxContainer" unique_id=972198280]
+unique_name_in_owner = true
+layout_mode = 2
+text = "25/25"
+horizontal_alignment = 1

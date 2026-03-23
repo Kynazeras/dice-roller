@@ -4,3 +4,5 @@
 
 # Ignore fonts to protect against licensing issues
 res://fonts/
+
+.vscode/
