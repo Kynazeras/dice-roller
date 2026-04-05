@@ -1,11 +1,12 @@
 {
   "starting_health": 25,
-  "starting_dice": ["d4", "d6"],
+  "starting_dice": ["d6"],
   "reroll_cost_base": 5,
   "reroll_cost_scaling": 3,
-  "roll_animation_time": 0.3,
+  "roll_animation_time": 2,
+  "max_rolls_per_round": 7,
   "rounds": [
-    { "goal": 7, "free_rerolls": 1 },
+    { "goal": 24, "free_rerolls": 1 },
     { "goal": 36, "free_rerolls": 1 },
     { "goal": 57, "free_rerolls": 1 }
   ]

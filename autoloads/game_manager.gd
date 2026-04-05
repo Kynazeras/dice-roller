@@ -86,10 +86,9 @@ func player_roll(dice: Dice) -> void:
 	_pending_round_total += result.final_value
 	roll_started.emit(dice)
 	roll_timer.start()
+	game_state.round_state.rolls.append(result)
 	game_state.round_state.last_roll = result
 	game_state.total_rolled += result.final_value
-	print(get_potential_round_result())
-	print(PlayerManager.get_potentianl_round_damage(get_potential_round_result()))
 
 
 func get_potential_round_result() -> RoundResult:
@@ -123,12 +122,14 @@ func _on_roll_animation_finished() -> void:
 
 
 func check_round_end() -> void:
-	var total: int = game_state.round_state.get_total()
-	var goal: int = game_state.round_state.goal
-	if total == goal:
-		end_round(RoundResult.EXACT)
-	elif total > goal:
-		end_round(RoundResult.OVER)
+	if game_state.round_state.rolls.size() == GameConfigManager.get_max_rolls_per_round():
+		end_round(get_potential_round_result())
+	# var total: int = game_state.round_state.get_total()
+	# var goal: int = game_state.round_state.goal
+	# if total == goal:
+	# 	end_round(RoundResult.EXACT)
+	# elif total > goal:
+	# 	end_round(RoundResult.OVER)
 
 
 func player_stop() -> void:
@@ -157,30 +158,11 @@ func end_round(result: RoundResult) -> void:
 	_pending_round_total = 0
 	_pending_roll_result = null
 	round_ended.emit(game_state.current_round, result)
-	print(PlayerManager.health_component.current_health)
 	if PlayerManager.health_component.current_health > 0:
 		SceneManager.change_scene("res://scenes/round_summary.tscn")
 	else:
 		current_state = State.GAME_OVER
 		game_over.emit(false)
-	# match result:
-	# 	RoundResult.EXACT:
-	# 		current_state = State.MODIFIER_REWARD
-	# 		modifier_reward_offered.emit(GameConfigManager.get_modifier_rewards_for_round(game_state.current_round))
-	# 	RoundResult.OVER:
-	# 		if PlayerManager.health_component.current_health > 0:
-	# 			SceneManager.change_scene("res://scenes/round_summary.tscn")
-	# 		else:
-	# 			current_state = State.GAME_OVER
-	# 			game_over.emit(false)
-	# 	RoundResult.UNDER:
-	# 		if PlayerManager.health_component.current_health > 0:
-	# 			SceneManager.change_scene("res://scenes/round_summary.tscn")
-	# 		else:
-	# 			current_state = State.GAME_OVER
-	# 			game_over.emit(false)
-	# 	_:
-	# 		push_warning("GameManager: Invalid round result for end_round")
 	
 		
 func select_modifier_reward(modifier: RollModifier) -> void:

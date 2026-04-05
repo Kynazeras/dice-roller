@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://ciumqtp33aoo1"]
 
+[ext_resource type="Script" uid="uid://fmehppw0olye" path="res://scripts/game_over_ui.gd" id="1_ovv0w"]
+
 [node name="GameOverScreen" type="Control" unique_id=1050671382]
 layout_mode = 3
 anchors_preset = 15
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ovv0w")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1070348491]
 layout_mode = 1
@@ -30,6 +33,7 @@ theme_override_font_sizes/font_size = 72
 text = "Game Over"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2117650129]
+[node name="NewGameButton" type="Button" parent="MarginContainer/VBoxContainer" unique_id=2117650129]
+unique_name_in_owner = true
 layout_mode = 2
 text = "New Game"

@@ -19,7 +19,6 @@ func roll(dice: Dice, round_state: RoundState) -> RollResult:
 	for modifier in PlayerManager.player_state.active_modifiers:
 		result = modifier.apply(result)
 	
-	round_state.rolls.append(result)
 	round_total_changed.emit(round_state.get_total())
 	roll_completed.emit(result)
 	return result
