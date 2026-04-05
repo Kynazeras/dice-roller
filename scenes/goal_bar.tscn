@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cwpasdjrpgxy7"]
 
-[node name="GoalBar" type="ProgressBar"]
-custom_minimum_size = Vector2(0, 24)
-offset_right = 4.0
-offset_bottom = 27.0
+[node name="GoalBar" type="ProgressBar" unique_id=1560026834]
+custom_minimum_size = Vector2(48, 0)
+offset_right = 24.0
+offset_bottom = 4.0
 value = 100.0
+fill_mode = 3
 show_percentage = false

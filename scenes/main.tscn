@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://gckk7oleb6uk"]
+[gd_scene format=3 uid="uid://gckk7oleb6uk"]
 
 [ext_resource type="Script" uid="uid://jylr3y3nesj7" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b0yy05p6213r2" path="res://scenes/dice_button.tscn" id="2_0wfyh"]
@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://de77rnee1psnf" path="res://scenes/health_bar.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://brgdpel6t6xhi" path="res://scenes/roll_result_label.tscn" id="4_tbgi4"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1794729043]
 script = ExtResource("1_o5qli")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1308873145]
 
-[node name="Control" type="Control" parent="UI"]
+[node name="Control" type="Control" parent="UI" unique_id=1641167961]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,13 +20,58 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RollHistoryContainer" parent="UI/Control" instance=ExtResource("2_jyhfs")]
+[node name="Goal" type="MarginContainer" parent="UI/Control" unique_id=671793926]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 96
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 96
+
+[node name="GoalContainer" type="HBoxContainer" parent="UI/Control/Goal" unique_id=1384303850]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_constants/separation = 48
+
+[node name="GoalBar" parent="UI/Control/Goal/GoalContainer" unique_id=919627293 instance=ExtResource("3_sugp2")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+fill_mode = 3
+
+[node name="TotalLabel" type="Label" parent="UI/Control/Goal/GoalContainer" unique_id=1520875783]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 96
+
+[node name="GameOverLabel" type="Label" parent="UI/Control/Goal/GoalContainer" unique_id=1555093427]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Control/Goal" unique_id=1665373199]
+visible = false
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+value = 100.0
+fill_mode = 2
+
+[node name="RollHistoryContainer" parent="UI/Control" unique_id=1862891481 instance=ExtResource("2_jyhfs")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
 offset_right = 92.0
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control" unique_id=71199953]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,65 +80,50 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 24
 theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer" unique_id=1390962266]
 layout_mode = 2
 theme_override_constants/separation = 36
 
-[node name="HealthBar" parent="UI/Control/MarginContainer/VBoxContainer" instance=ExtResource("3_tefeu")]
+[node name="HealthBar" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1683581533 instance=ExtResource("3_tefeu")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer"]
+[node name="Data" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1435571093]
 layout_mode = 2
 
-[node name="CurrentRoundLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CurrentRoundLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/Data" unique_id=1988471460]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Round: 1"
+text = "Week: 1"
 
-[node name="GoalLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CurrentDayLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/Data" unique_id=1927603417]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Goal: 25"
+text = "Day: 1"
 
-[node name="DiceButtons" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer"]
+[node name="GoalLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/Data" unique_id=1021104265]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+text = "Water Level: 25"
 
-[node name="D4" parent="UI/Control/MarginContainer/VBoxContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
-layout_mode = 2
-
-[node name="D6" parent="UI/Control/MarginContainer/VBoxContainer/DiceButtons" instance=ExtResource("2_0wfyh")]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/Control/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1228626387]
 layout_mode = 2
 theme_override_constants/margin_top = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="RollResultLabel" parent="UI/Control/MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource("4_tbgi4")]
+[node name="RollResultLabel" parent="UI/Control/MarginContainer/VBoxContainer/MarginContainer" unique_id=668798435 instance=ExtResource("4_tbgi4")]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GoalContainer" type="VBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="TotalLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/GoalContainer"]
+[node name="DiceButtons" type="HBoxContainer" parent="UI/Control/MarginContainer/VBoxContainer" unique_id=1487104070]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 96
+size_flags_vertical = 10
+alignment = 2
 
-[node name="GoalBar" parent="UI/Control/MarginContainer/VBoxContainer/GoalContainer" instance=ExtResource("3_sugp2")]
-unique_name_in_owner = true
+[node name="D4" parent="UI/Control/MarginContainer/VBoxContainer/DiceButtons" unique_id=1950475850 instance=ExtResource("2_0wfyh")]
 layout_mode = 2
-size_flags_vertical = 4
 
-[node name="GameOverLabel" type="Label" parent="UI/Control/MarginContainer/VBoxContainer/GoalContainer"]
-unique_name_in_owner = true
+[node name="D6" parent="UI/Control/MarginContainer/VBoxContainer/DiceButtons" unique_id=2086032799 instance=ExtResource("2_0wfyh")]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48

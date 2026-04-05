@@ -8,6 +8,7 @@ var available_scenes: Array = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	available_scenes = get_scenes_from_directory()
+	GameManager.game_over.connect(_on_game_over)
 
 
 func get_current_scene() -> String:
@@ -37,3 +38,7 @@ func get_scenes_from_directory() -> Array:
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	return scenes
+
+
+func _on_game_over(_win: bool) -> void:
+	get_tree().change_scene_to_file("res://scenes/game_over_ui.tscn")

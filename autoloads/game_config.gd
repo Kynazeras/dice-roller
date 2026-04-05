@@ -43,6 +43,9 @@ func get_total_rounds() -> int:
 	return rounds.size()
 
 
+func get_max_rolls_per_round() -> int:
+	return _game_config.get("max_rolls_per_round", 7)
+
 func get_reroll_cost_base() -> int:
 	return _game_config.get("reroll_cost_base", 5)
 
