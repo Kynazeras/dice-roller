@@ -3,6 +3,6 @@
 /android/
 
 # Ignore fonts to protect against licensing issues
-res://fonts/
+theme/fonts/
 
 .vscode/
